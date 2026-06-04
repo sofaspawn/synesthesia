@@ -22,29 +22,24 @@ fn main() {
 
     let mut accumulation = vec![[0.0f32; 3]; WIDTH * HEIGHT];
     let mut framebuffer = vec![0u32; WIDTH * HEIGHT];
-
     let mut particles: Vec<Particle> = Vec::new();
 
     let start = Instant::now();
 
     while window.is_open() && !window.is_key_down(Key::Escape) {
         let time = start.elapsed().as_secs_f32();
-
         for px in accumulation.iter_mut() {
             px[0] *= 0.985;
             px[1] *= 0.985;
             px[2] *= 0.985;
         }
-
         let mut fft_input = vec![];
-
         for i in 0..256 {
             let v = ((i as f32 * 0.15 + time * 3.5).sin() * 0.5 + 0.5)
                 * ((time * 1.7).sin() * 0.5 + 0.5);
 
             fft_input.push(Complex { re: v, im: 0.0 });
         }
-
         let mut planner = FftPlanner::<f32>::new();
         let fft = planner.plan_fft_forward(256);
         fft.process(&mut fft_input);
