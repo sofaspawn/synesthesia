@@ -71,22 +71,16 @@ fn main() {
 
         for (i, c) in fft_input.iter().enumerate().take(128) {
             let mag = (c.norm() * 0.01).min(1.0);
-
             let phase = (time * 0.11).sin() * 0.8;
-
             let angle = i as f32 / 128.0 * PI * 2.0 + time * 0.12 + phase + mag * 0.5;
-
             let noise = (angle * 8.0 + time * 1.3).sin() * 25.0
                 + (angle * 19.0 - time * 0.7).cos() * 15.0
                 + (angle * 37.0 + time * 0.2).sin() * 8.0;
 
             let radius = 170.0 + mag * 260.0 + noise + bass * 120.0;
-
             let x = cx + angle.cos() * radius;
             let y = cy + angle.sin() * radius;
-
             let hue_shift = (time * 0.07 + i as f32 * 0.01).sin() * 0.2;
-
             let color = [0.7 + hue_shift, 0.3 + mids * 0.5, 1.0];
 
             draw_glow(
@@ -100,13 +94,9 @@ fn main() {
 
             for j in 0..8 {
                 let offset = time * (0.15 + j as f32 * 0.04);
-
                 let small_radius = radius + (j as f32 * 16.0);
-
                 let px = cx + (angle + offset).cos() * small_radius;
-
                 let py = cy + (angle + offset).sin() * small_radius;
-
                 let sparkle = (time * 5.0 + j as f32).sin() * 0.5 + 0.5;
 
                 draw_glow(
