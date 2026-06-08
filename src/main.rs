@@ -48,7 +48,6 @@ fn main() {
         let mids = fft_input[20].norm() * 0.01;
 
         let cx = WIDTH as f32 * 0.5 + (time * 0.17).sin() * 70.0 + (time * 0.041).cos() * 40.0;
-
         let cy = HEIGHT as f32 * 0.5 + (time * 0.13).cos() * 55.0 + (time * 0.031).sin() * 30.0;
 
         for i in 0..60 {
